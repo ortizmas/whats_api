@@ -1,15 +1,22 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
-use Inertia\Inertia;
+    use App\Http\Controllers\MessageController;
+    use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return Inertia::render('Welcome');
-})->name('home');
+    Route::get('/', function () {
+        return view('welcome', [
+            'title' => 'Bem-vindo ao sistema',
+            'message' => 'Agora tudo é Blade, sem Vue 🚀'
+        ]);
+    });
 
-Route::get('dashboard', function () {
-    return Inertia::render('Dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
 
-require __DIR__.'/settings.php';
-require __DIR__.'/auth.php';
+    Route::get('workers', [MessageController::class, 'workers'])->name('workers');
+    Route::get('start', [MessageController::class, 'start'])->name('start');
+
+    require __DIR__.'/settings.php';
+    require __DIR__.'/auth.php';
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
