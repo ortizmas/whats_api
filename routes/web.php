@@ -12,7 +12,11 @@
 
 
     Route::get('workers', [MessageController::class, 'workers'])->name('workers');
-    Route::get('start', [MessageController::class, 'start'])->name('start');
+    Route::get('create-session/{hostname}', [MessageController::class, 'createSession'])->name('create-session');
+    Route::post('start', [MessageController::class, 'start'])->name('start');
+    Route::get('create-qr/{session}', [MessageController::class, 'createQr'])->name('create-qr');
+    Route::post('generate-qr', [MessageController::class, 'generateQr'])->name('generate-qr');
+    Route::post('send', [MessageController::class, 'send'])->name('send');
 
     require __DIR__.'/settings.php';
     require __DIR__.'/auth.php';
